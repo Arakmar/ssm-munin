@@ -19,7 +19,6 @@
 #
 define munin::master::node_definition (
   $address,
-  $mastername='',
   $config=[],
 )
 {

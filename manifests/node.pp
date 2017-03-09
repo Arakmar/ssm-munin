@@ -31,7 +31,7 @@
 # masterconfig: List of configuration lines to append to the munin
 # master node definitinon
 #
-# mastername: The name of the munin master server which will collect
+# masternames: The name of the munin master server which will collect
 # the node definition.
 #
 # mastergroup: The group used on the master to construct a FQN for
@@ -76,7 +76,7 @@ class munin::node (
   $log_file        = $munin::params::node::log_file,
   $masterconfig    = $munin::params::node::masterconfig,
   $mastergroup     = $munin::params::node::mastergroup,
-  $mastername      = $munin::params::node::mastername,
+  $masternames     = $munin::params::node::masternames,
   $nodeconfig      = $munin::params::node::nodeconfig,
   $package_name    = $munin::params::node::package_name,
   $plugins         = $munin::params::node::plugins,
@@ -94,7 +94,7 @@ class munin::node (
   validate_array($nodeconfig)
   validate_array($masterconfig)
   if $mastergroup { validate_string($mastergroup) }
-  if $mastername { validate_string($mastername) }
+  if $masternames { validate_array($masternames) }
   validate_hash($plugins)
   validate_string($address)
   validate_absolute_path($config_root)
@@ -168,7 +168,7 @@ class munin::node (
     class { '::munin::node::export':
       address      => $address,
       fqn          => $fqn,
-      mastername   => $mastername,
+      masternames  => $masternames,
       masterconfig => $masterconfig,
     }
   }
